@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `wallet/src/main.rs`."><title>main.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-9ee3a5e31a2afa3e.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="tuxedo_template_wallet" data-themes="" data-resource-suffix="" data-rustdoc-version="1.75.0-nightly (9d83ac217 2023-10-31)" data-channel="nightly" data-search-js="search-8fbf244ebcf71464.js" data-settings-js="settings-74424d7eec62a23e.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-9dd44ab47b99a0fb.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `wallet/src/main.rs`."><title>main.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-c67e44d78ab2db17.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="tuxedo_template_wallet" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (9fad68599 2023-12-03)" data-channel="nightly" data-search-js="search-5a66c239c06b3a66.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -257,22 +257,17 @@
 <a href="#257" id="257">257</a>
 <a href="#258" id="258">258</a>
 <a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! A simple CLI wallet. For now it is a toy just to start testing things out.
 
-</span><span class="kw">use </span>anyhow::anyhow;
-<span class="kw">use </span>clap::Parser;
-<span class="kw">use </span>jsonrpsee::{
-    core::client::ClientT,
-    http_client::{HttpClient, HttpClientBuilder},
-    rpc_params,
-};
+</span><span class="kw">use </span>clap::Parser;
+<span class="kw">use </span>jsonrpsee::http_client::HttpClientBuilder;
 <span class="kw">use </span>parity_scale_codec::{Decode, Encode};
 <span class="kw">use </span>runtime::OuterVerifier;
 <span class="kw">use </span>std::path::PathBuf;
-<span class="kw">use </span>tuxedo_core::{
-    types::{Output, OutputRef},
-    verifier::<span class="kw-2">*</span>,
-};
+<span class="kw">use </span>tuxedo_core::{types::OutputRef, verifier::<span class="kw-2">*</span>};
 
 <span class="kw">use </span>sp_core::H256;
 
@@ -296,16 +291,24 @@
     <span class="comment">// Parse command line args
     </span><span class="kw">let </span>cli = Cli::parse();
 
+    <span class="comment">// If the user specified --tmp or --dev, then use a temporary directory.
+    </span><span class="kw">let </span>tmp = cli.tmp || cli.dev;
+
     <span class="comment">// Setup the data paths.
-    </span><span class="kw">let </span>data_path = cli.data_path.unwrap_or_else(default_data_path);
+    </span><span class="kw">let </span>data_path = <span class="kw">match </span>tmp {
+        <span class="bool-val">true </span>=&gt; temp_dir(),
+        <span class="kw">_ </span>=&gt; cli.path.unwrap_or_else(default_data_path),
+    };
     <span class="kw">let </span>keystore_path = data_path.join(<span class="string">&quot;keystore&quot;</span>);
     <span class="kw">let </span>db_path = data_path.join(<span class="string">&quot;wallet_database&quot;</span>);
 
     <span class="comment">// Setup the keystore
     </span><span class="kw">let </span>keystore = sc_keystore::LocalKeystore::open(keystore_path.clone(), <span class="prelude-val">None</span>)<span class="question-mark">?</span>;
 
-    <span class="comment">// Insert the example Shawn key so example transactions can be signed.
-    </span><span class="kw">crate</span>::keystore::insert_default_key_for_this_session(<span class="kw-2">&amp;</span>keystore)<span class="question-mark">?</span>;
+    <span class="kw">if </span>cli.dev {
+        <span class="comment">// Insert the example Shawn key so example transactions can be signed.
+        </span><span class="kw">crate</span>::keystore::insert_development_key_for_this_session(<span class="kw-2">&amp;</span>keystore)<span class="question-mark">?</span>;
+    }
 
     <span class="comment">// Setup jsonrpsee and endpoint-related information.
     // https://github.com/paritytech/jsonrpsee/blob/master/examples/examples/http.rs
@@ -321,25 +324,24 @@
     <span class="macro">log::debug!</span>(<span class="string">&quot;Node&#39;s Genesis block::{:?}&quot;</span>, node_genesis_hash);
 
     <span class="comment">// Open the local database
-    </span><span class="kw">let </span>db = sync::open_db(db_path, node_genesis_hash, node_genesis_block)<span class="question-mark">?</span>;
+    </span><span class="kw">let </span>db = sync::open_db(db_path, node_genesis_hash, node_genesis_block.clone())<span class="question-mark">?</span>;
 
     <span class="kw">let </span>num_blocks =
         sync::height(<span class="kw-2">&amp;</span>db)<span class="question-mark">?</span>.expect(<span class="string">&quot;db should be initialized automatically when opening.&quot;</span>);
     <span class="macro">log::info!</span>(<span class="string">&quot;Number of blocks in the db: {num_blocks}&quot;</span>);
 
-    <span class="comment">// The filter function that will determine whether the local database should
-    // track a given utxo is based on whether that utxo is privately owned by a
-    // key that is in our keystore.
+    <span class="comment">// The filter function that will determine whether the local database should track a given utxo
+    // is based on whether that utxo is privately owned by a key that is in our keystore.
     </span><span class="kw">let </span>keystore_filter = |v: <span class="kw-2">&amp;</span>OuterVerifier| -&gt; bool {
         <span class="macro">matches!</span>[
             v,
-            OuterVerifier::SigCheck(SigCheck { owner_pubkey }) <span class="kw">if </span><span class="kw">crate</span>::keystore::has_key(<span class="kw-2">&amp;</span>keystore, owner_pubkey)
+            OuterVerifier::Sr25519Signature(Sr25519Signature { owner_pubkey }) <span class="kw">if </span><span class="kw">crate</span>::keystore::has_key(<span class="kw-2">&amp;</span>keystore, owner_pubkey)
         ]
     };
 
     <span class="kw">if </span>!sled::Db::was_recovered(<span class="kw-2">&amp;</span>db) {
-        <span class="comment">// Before synchronizing init the database with the current Genesis utxos
-        </span>sync::init_from_genesis(<span class="kw-2">&amp;</span>db, <span class="kw-2">&amp;</span>client, <span class="kw-2">&amp;</span>keystore_filter).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="comment">// This is a new instance, so we need to apply the genesis block to the database.
+        </span>sync::apply_block(<span class="kw-2">&amp;</span>db, node_genesis_block, node_genesis_hash, <span class="kw-2">&amp;</span>keystore_filter).<span class="kw">await</span><span class="question-mark">?</span>;
     }
 
     <span class="comment">// Synchronize the wallet with attached node unless instructed otherwise.
@@ -430,25 +432,20 @@
             <span class="macro">log::info!</span>(<span class="string">&quot;No Wallet Command invoked. Exiting.&quot;</span>);
             <span class="prelude-val">Ok</span>(())
         }
+    }<span class="question-mark">?</span>;
+
+    <span class="kw">if </span>tmp {
+        <span class="comment">// Cleanup the temporary directory.
+        </span>std::fs::remove_dir_all(data_path.clone()).map_err(|e| {
+            <span class="macro">log::warn!</span>(
+                <span class="string">&quot;Unable to remove temporary data directory at {}\nPlease remove it manually.&quot;</span>,
+                data_path.to_string_lossy()
+            );
+            e
+        })<span class="question-mark">?</span>;
     }
-}
 
-<span class="comment">//TODO move to rpc.rs
-</span><span class="doccomment">/// Fetch an output from chain storage given an OutputRef
-</span><span class="kw">pub async fn </span>fetch_storage&lt;V: Verifier&gt;(
-    output_ref: <span class="kw-2">&amp;</span>OutputRef,
-    client: <span class="kw-2">&amp;</span>HttpClient,
-) -&gt; anyhow::Result&lt;Output&lt;V&gt;&gt; {
-    <span class="kw">let </span>ref_hex = hex::encode(output_ref.encode());
-    <span class="kw">let </span>params = <span class="macro">rpc_params!</span>[ref_hex];
-    <span class="kw">let </span>rpc_response: <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;String&gt;, <span class="kw">_</span>&gt; = client.request(<span class="string">&quot;state_getStorage&quot;</span>, params).<span class="kw">await</span>;
-
-    <span class="kw">let </span>response_hex = rpc_response<span class="question-mark">?</span>.ok_or(<span class="macro">anyhow!</span>(<span class="string">&quot;Data cannot be retrieved from storage&quot;</span>))<span class="question-mark">?</span>;
-    <span class="kw">let </span>response_hex = strip_0x_prefix(<span class="kw-2">&amp;</span>response_hex);
-    <span class="kw">let </span>response_bytes = hex::decode(response_hex)<span class="question-mark">?</span>;
-    <span class="kw">let </span>utxo = Output::decode(<span class="kw-2">&amp;mut &amp;</span>response_bytes[..])<span class="question-mark">?</span>;
-
-    <span class="prelude-val">Ok</span>(utxo)
+    <span class="prelude-val">Ok</span>(())
 }
 
 <span class="doccomment">/// Parse a string into an H256 that represents a public key
@@ -480,6 +477,15 @@
     }
 }
 
+<span class="doccomment">/// Generate a plaform-specific temporary directory for the wallet
+</span><span class="kw">fn </span>temp_dir() -&gt; PathBuf {
+    <span class="comment">// Since it is only used for testing purpose, we don&#39;t need a secure temp dir, just a unique one.
+    </span>std::env::temp_dir().join(<span class="macro">format!</span>(
+        <span class="string">&quot;tuxedo-wallet-{}&quot;</span>,
+        std::time::UNIX_EPOCH.elapsed().unwrap().as_millis(),
+    ))
+}
+
 <span class="doccomment">/// Generate the platform-specific default data path for the wallet
 </span><span class="kw">fn </span>default_data_path() -&gt; PathBuf {
     <span class="comment">// This uses the directories crate.
@@ -499,8 +505,8 @@
 <span class="doccomment">/// Utility to pretty print an outer verifier
 </span><span class="kw">pub fn </span>pretty_print_verifier(v: <span class="kw-2">&amp;</span>OuterVerifier) {
     <span class="kw">match </span>v {
-        OuterVerifier::SigCheck(sig_check) =&gt; {
-            <span class="macro">println! </span>{<span class="string">&quot;owned by {}&quot;</span>, sig_check.owner_pubkey}
+        OuterVerifier::Sr25519Signature(sr25519_signature) =&gt; {
+            <span class="macro">println! </span>{<span class="string">&quot;owned by {}&quot;</span>, sr25519_signature.owner_pubkey}
         }
         OuterVerifier::UpForGrabs(<span class="kw">_</span>) =&gt; <span class="macro">println!</span>(<span class="string">&quot;that can be spent by anyone&quot;</span>),
         OuterVerifier::ThresholdMultiSignature(multi_sig) =&gt; {
