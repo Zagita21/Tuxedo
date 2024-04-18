@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `wardrobe/poe/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-c67e44d78ab2db17.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="poe" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (9fad68599 2023-12-03)" data-channel="nightly" data-search-js="search-5a66c239c06b3a66.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `wardrobe/poe/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="poe" data-themes="" data-resource-suffix="" data-rustdoc-version="1.77.2 (25ef9e3d8 2024-04-09)" data-channel="1.77.2" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+            <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../poe/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -211,13 +213,25 @@
 <a href="#211" id="211">211</a>
 <a href="#212" id="212">212</a>
 <a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
 </pre></div><pre class="rust"><code><span class="doccomment">//! This file represents a simple Proof of Existence application, identical in behavior
 //! to the tutorial https://docs.substrate.io/tutorials/work-with-pallets/use-macros-in-a-custom-pallet/
 //! Of course, this implementation is based on UTXOs and works with Tuxedo rather than FRAME.
 //!
 //! The application allows users to claim the existence of a preimage for a particular hash with a
 //! transaction. Thus, the blockchain network acts as a decentralized notary service. Claims are
-//! stored in the state, and can be &quot;revoked&quot; from the state later, although the redeemer to the original
+//! stored in the state, and can be "revoked" from the state later, although the redeemer to the original
 //! claim will always remain in the history of the blockchain.
 //!
 //! The main design deviation from the FRAME PoE pallet is the means by which redundant claims are settled.
@@ -228,7 +242,7 @@
 //! the difference between recorded and registered land
 //! https://cannerlaw.com/blog/the-difference-of-recorded-and-registered-land/
 
-</span><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
+</span><span class="attr">#![cfg_attr(not(feature = <span class="string">"std"</span>), no_std)]
 
 </span><span class="kw">use </span>core::marker::PhantomData;
 
@@ -248,17 +262,17 @@
 <span class="attr">#[cfg(test)]
 </span><span class="kw">mod </span>tests;
 
-<span class="comment">// Notice this type doesn&#39;t have to be public. Cool.
+<span class="comment">// Notice this type doesn't have to be public. Cool.
 </span><span class="attr">#[derive(Serialize, Deserialize, Encode, Decode, Debug, PartialEq, Eq, Clone)]
 </span><span class="kw">struct </span>ClaimData {
     <span class="doccomment">/// The hash of the data whose existence is being proven.
     </span>claim: H256,
     <span class="doccomment">/// The time (in block height) at which the claim becomes valid.
-    </span>effective_height: u32, <span class="comment">//TODO get the generic block height type
-</span>}
+    </span>effective_height: u32,
+}
 
 <span class="kw">impl </span>UtxoData <span class="kw">for </span>ClaimData {
-    <span class="kw">const </span>TYPE_ID: [u8; <span class="number">4</span>] = <span class="kw-2">*</span><span class="string">b&quot;poe_&quot;</span>;
+    <span class="kw">const </span>TYPE_ID: [u8; <span class="number">4</span>] = <span class="kw-2">*</span><span class="string">b"poe_"</span>;
 }
 
 <span class="doccomment">/// Errors that can occur when checking PoE Transactions
@@ -278,6 +292,11 @@
     </span><span class="doccomment">/// The effective height of this claim is in the past,
     /// So the claim cannot be created.
     </span>EffectiveHeightInPast,
+
+    <span class="doccomment">/// Claims under dispute do not have the same hash, but they must.
+    </span>DisputingMismatchedClaims,
+    <span class="doccomment">/// The winner of a dispute must be the oldest claim (the lowest block number)
+    </span>IncorrectDisputeWinner,
 }
 
 <span class="doccomment">/// Configuration items for the Proof of Existence piece when it is
@@ -304,12 +323,17 @@
     <span class="kw">fn </span>check(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         input_data: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
+        evicted_input_data: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
         _peeks: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
         output_data: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
     ) -&gt; <span class="prelude-ty">Result</span>&lt;TransactionPriority, <span class="self">Self</span>::Error&gt; {
-        <span class="comment">// Make sure there are no inputs
+        <span class="comment">// Make sure there are no inputs or evictions
         </span><span class="macro">ensure!</span>(
             input_data.is_empty(),
+            ConstraintCheckerError::WrongNumberInputs
+        );
+        <span class="macro">ensure!</span>(
+            evicted_input_data.is_empty(),
             ConstraintCheckerError::WrongNumberInputs
         );
 
@@ -323,7 +347,7 @@
                 .extract::&lt;ClaimData&gt;()
                 .map_err(|<span class="kw">_</span>| ConstraintCheckerError::BadlyTypedOutput)<span class="question-mark">?</span>;
             <span class="macro">ensure!</span>(
-                <span class="comment">//TODO we&#39;re grabbing the block height function directly from
+                <span class="comment">//TODO we're grabbing the block height function directly from
                 // the runtime level. This needs to be made available through some
                 // kind of config.
                 </span>output.effective_height &gt;= T::block_height(),
@@ -347,20 +371,27 @@
     <span class="kw">fn </span>check(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         input_data: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
+        evicted_input_data: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
         _peeks: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
         output_data: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
     ) -&gt; <span class="prelude-ty">Result</span>&lt;TransactionPriority, <span class="self">Self</span>::Error&gt; {
+        <span class="comment">// Can't evict anything
+        </span><span class="macro">ensure!</span>(
+            evicted_input_data.is_empty(),
+            ConstraintCheckerError::WrongNumberInputs
+        );
+
         <span class="comment">// Make sure there are no outputs
         </span><span class="macro">ensure!</span>(
             output_data.is_empty(),
             ConstraintCheckerError::WrongNumberOutputs
         );
 
-        <span class="comment">// Make sure the inputs are properly typed. We don&#39;t need to check anything else about them.
+        <span class="comment">// Make sure the inputs are properly typed. We don't need to check anything else about them.
         </span><span class="kw">for </span>untyped_input <span class="kw">in </span>input_data {
             <span class="kw">let _ </span>= untyped_input
                 .extract::&lt;ClaimData&gt;()
-                .map_err(|<span class="kw">_</span>| ConstraintCheckerError::BadlyTypedInput);
+                .map_err(|<span class="kw">_</span>| ConstraintCheckerError::BadlyTypedInput)<span class="question-mark">?</span>;
         }
 
         <span class="prelude-val">Ok</span>(<span class="number">0</span>)
@@ -369,14 +400,7 @@
 
 <span class="doccomment">/// A constraint checker that resolves claim disputes by keeping whichever claim came first.
 ///
-/// TODO this will work much more elegantly once peek is implemented. We only need to peek at the
-/// older winning claim because it will remain in state afterwards.
-///
-/// TODO what shall we do about the verifier? Each claimer may have given their claim a verifier
-/// such that their own private signature. Perhaps there should be a way for a constraint checker to override
-/// the verifier logic? This is a concrete case where the constraint checker verifier separation is not ideal.
-/// Another, weaker example, is when trying o implement something like sudo. Where we want a signature,
-/// but we want to authorized signer to come from the a different part of state.
+/// Any user may submit a transaction reporting conflicting claims, and the oldest one will be kept.
 </span><span class="attr">#[derive(Serialize, Deserialize, Encode, Decode, Debug, PartialEq, Eq, Clone, TypeInfo)]
 </span><span class="kw">pub struct </span>PoeDispute;
 
@@ -385,43 +409,45 @@
 
     <span class="kw">fn </span>check(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        _input_data: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
-        _peeks: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
-        _output_data: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
+        input_data: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
+        evicted_input_data: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
+        peek_data: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
+        output_data: <span class="kw-2">&amp;</span>[DynamicallyTypedData],
     ) -&gt; <span class="prelude-ty">Result</span>&lt;TransactionPriority, <span class="self">Self</span>::Error&gt; {
-        <span class="macro">todo!</span>(<span class="string">&quot;implement this once we have at least peeks and maybe evictions&quot;</span>)
+        <span class="comment">// Make sure there are no normal inputs or outputs
+        </span><span class="macro">ensure!</span>(
+            input_data.is_empty(),
+            ConstraintCheckerError::WrongNumberInputs
+        );
+        <span class="macro">ensure!</span>(
+            output_data.is_empty(),
+            ConstraintCheckerError::WrongNumberOutputs
+        );
 
-        <span class="comment">// Make sure there is at least one input (once peek is ready, it will become a peek)
-        // This first input (or only peek) is the claim that will be retained.
+        <span class="comment">// Make sure there is exactly one peek (the oldest, winning claim)
+        </span><span class="kw">let </span>winner = peek_data
+            .first()
+            .ok_or(ConstraintCheckerError::WrongNumberInputs)<span class="question-mark">?
+            </span>.extract::&lt;ClaimData&gt;()
+            .map_err(|<span class="kw">_</span>| ConstraintCheckerError::BadlyTypedInput)<span class="question-mark">?</span>;
 
-        // Make sure that all other inputs, claim the same hash as the winner.
+        <span class="comment">// Make sure that all evicted inputs, claim the same hash as the winner
+        // and have block heights strictly greater than the winner.
+        </span><span class="kw">for </span>untyped_loser <span class="kw">in </span>evicted_input_data {
+            <span class="kw">let </span>loser = untyped_loser
+                .extract::&lt;ClaimData&gt;()
+                .map_err(|<span class="kw">_</span>| ConstraintCheckerError::BadlyTypedInput)<span class="question-mark">?</span>;
+            <span class="macro">ensure!</span>(
+                winner.claim == loser.claim,
+                <span class="self">Self</span>::Error::DisputingMismatchedClaims
+            );
+            <span class="macro">ensure!</span>(
+                winner.effective_height &lt; loser.effective_height,
+                <span class="self">Self</span>::Error::IncorrectDisputeWinner
+            );
+        }
 
-        // Make sure that all other claims have block heights strictly greater than the winner.
-
-        //TODO what to do about the verifiers on those losing claims.
-    </span>}
-}
-
-<span class="attr">#[allow(dead_code)]
-</span><span class="kw">mod </span>brainstorm {
-    <span class="doccomment">/// One workable solution to the problem above is modifying the core transaction structure to something like this
-    </span><span class="kw">struct </span>Transaction {
-        <span class="doccomment">/// A classic input that is consumed from the utxo set. Its verifier must be satisfied for the tx to be valid
-        </span>redemptions: Vec&lt;InputRef&gt;,
-        <span class="doccomment">/// Similar to a redemption, this is an input that is consumed from the utxo set, but its verifier need not be satisfied
-        /// In the Poe case above, the losing claims that came later would be evictions.
-        </span>evictions: Vec&lt;InputRef&gt;,
-        <span class="doccomment">/// Similar to an input, but it is not consumed. This is a way to read pre-existing state without removing it from the utxo set
-        /// this also indicates when transaction are not competing for state despite reading the same state, and thus commute.
-        /// TBD whether it makes sense to have a verifier check. My gut instinct is no verifier check, but it needs more careful thought.
-        </span>peeks: Vec&lt;InputRef&gt;,
-        <span class="doccomment">/// Newly created pieces of state to be added to the utxo set.
-        </span>outputs: Vec&lt;Output&gt;,
+        <span class="prelude-val">Ok</span>(<span class="number">0</span>)
     }
-
-    <span class="comment">// Aliases so my sketch above compiles
-    </span><span class="kw">type </span>InputRef = ();
-    <span class="kw">type </span>Output = ();
-    <span class="kw">use </span>sp_std::vec::Vec;
 }
 </code></pre></div></section></main></body></html>

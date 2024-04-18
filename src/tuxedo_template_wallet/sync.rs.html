@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `wallet/src/sync.rs`."><title>sync.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-c67e44d78ab2db17.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="tuxedo_template_wallet" data-themes="" data-resource-suffix="" data-rustdoc-version="1.76.0-nightly (9fad68599 2023-12-03)" data-channel="nightly" data-search-js="search-5a66c239c06b3a66.js" data-settings-js="settings-fe03fdc259827cd2.js" ><script src="../../static.files/storage-fec3eaa3851e447d.js"></script><script defer src="../../static.files/src-script-3280b574d94e47b4.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-77dede896d6ac08e.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-5d8b3c7633ad77ba.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `wallet/src/sync.rs`."><title>sync.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-5bc39a1768837dd0.css"><meta name="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="tuxedo_template_wallet" data-themes="" data-resource-suffix="" data-rustdoc-version="1.77.2 (25ef9e3d8 2024-04-09)" data-channel="1.77.2" data-search-js="search-dd67cee4cfa65049.js" data-settings-js="settings-4313503d2e1961c2.js" ><script src="../../static.files/storage-4c98445ec4002617.js"></script><script defer src="../../static.files/src-script-e66d777a5a92e9b2.js"></script><script defer src="../../src-files.js"></script><script defer src="../../static.files/main-48f368f3872407c8.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-04d5337699b92874.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc src"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title">
+            <h2>Files</h2></div></nav><div class="sidebar-resizer"></div>
+    <main><nav class="sub"><form class="search-form"><span></span><div id="sidebar-button" tabindex="-1"><a href="../../tuxedo_template_wallet/all.html" title="show sidebar"></a></div><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" tabindex="-1"><a href="../../help.html" title="help">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -456,7 +458,23 @@
 <a href="#456" id="456">456</a>
 <a href="#457" id="457">457</a>
 <a href="#458" id="458">458</a>
-</pre></div><pre class="rust"><code><span class="doccomment">//! This module is responsible for maintaining the wallet&#39;s local database of blocks
+<a href="#459" id="459">459</a>
+<a href="#460" id="460">460</a>
+<a href="#461" id="461">461</a>
+<a href="#462" id="462">462</a>
+<a href="#463" id="463">463</a>
+<a href="#464" id="464">464</a>
+<a href="#465" id="465">465</a>
+<a href="#466" id="466">466</a>
+<a href="#467" id="467">467</a>
+<a href="#468" id="468">468</a>
+<a href="#469" id="469">469</a>
+<a href="#470" id="470">470</a>
+<a href="#471" id="471">471</a>
+<a href="#472" id="472">472</a>
+<a href="#473" id="473">473</a>
+<a href="#474" id="474">474</a>
+</pre></div><pre class="rust"><code><span class="doccomment">//! This module is responsible for maintaining the wallet's local database of blocks
 //! and owned UTXOs to the canonical database reported by the node.
 //!
 //! It is backed by a sled database
@@ -476,26 +494,31 @@
 <span class="kw">use </span>parity_scale_codec::{Decode, Encode};
 <span class="kw">use </span>sled::Db;
 <span class="kw">use </span>sp_core::H256;
-<span class="kw">use </span>sp_runtime::traits::{BlakeTwo256, Hash};
+<span class="kw">use </span>sp_runtime::{
+    traits::{BlakeTwo256, Hash},
+    OpaqueExtrinsic,
+};
 <span class="kw">use </span>tuxedo_core::{
-    types::{Input, OutputRef},
-    verifier::Sr25519Signature,
+    dynamic_typing::UtxoData,
+    types::Transaction,
+    types::{Input, OpaqueBlock, OutputRef},
+    ConstraintChecker,
 };
 
 <span class="kw">use </span>jsonrpsee::http_client::HttpClient;
-<span class="kw">use </span>runtime::{money::Coin, Block, OuterVerifier, Transaction};
+<span class="kw">use </span>runtime::{money::Coin, timestamp::Timestamp, Block, OuterVerifier};
 
 <span class="doccomment">/// The identifier for the blocks tree in the db.
-</span><span class="kw">const </span>BLOCKS: <span class="kw-2">&amp;</span>str = <span class="string">&quot;blocks&quot;</span>;
+</span><span class="kw">const </span>BLOCKS: <span class="kw-2">&amp;</span>str = <span class="string">"blocks"</span>;
 
 <span class="doccomment">/// The identifier for the block_hashes tree in the db.
-</span><span class="kw">const </span>BLOCK_HASHES: <span class="kw-2">&amp;</span>str = <span class="string">&quot;block_hashes&quot;</span>;
+</span><span class="kw">const </span>BLOCK_HASHES: <span class="kw-2">&amp;</span>str = <span class="string">"block_hashes"</span>;
 
 <span class="doccomment">/// The identifier for the unspent tree in the db.
-</span><span class="kw">const </span>UNSPENT: <span class="kw-2">&amp;</span>str = <span class="string">&quot;unspent&quot;</span>;
+</span><span class="kw">const </span>UNSPENT: <span class="kw-2">&amp;</span>str = <span class="string">"unspent"</span>;
 
 <span class="doccomment">/// The identifier for the spent tree in the db.
-</span><span class="kw">const </span>SPENT: <span class="kw-2">&amp;</span>str = <span class="string">&quot;spent&quot;</span>;
+</span><span class="kw">const </span>SPENT: <span class="kw-2">&amp;</span>str = <span class="string">"spent"</span>;
 
 <span class="doccomment">/// Open a database at the given location intended for the given genesis block.
 ///
@@ -504,35 +527,37 @@
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>open_db(
     db_path: PathBuf,
     expected_genesis_hash: H256,
-    expected_genesis_block: Block,
+    expected_genesis_block: OpaqueBlock,
 ) -&gt; anyhow::Result&lt;Db&gt; {
     <span class="comment">//TODO figure out why this assertion fails.
-    //assert_eq!(BlakeTwo256::hash_of(&amp;expected_genesis_block.encode()), expected_genesis_hash, &quot;expected block hash does not match expected block&quot;);
+    // Possibly this https://substrate.stackexchange.com/questions/7357/
+    // But also possibly something else now that I switched to opaque block
+    //assert_eq!(BlakeTwo256::hash_of(&amp;expected_genesis_block.encode()), expected_genesis_hash, "expected block hash does not match expected block");
 
     </span><span class="kw">let </span>db = sled::open(db_path)<span class="question-mark">?</span>;
 
-    <span class="comment">// Open the tables we&#39;ll need
+    <span class="comment">// Open the tables we'll need
     </span><span class="kw">let </span>wallet_block_hashes_tree = db.open_tree(BLOCK_HASHES)<span class="question-mark">?</span>;
-    <span class="kw">let </span>wallet_blocks_tree = db.open_tree(<span class="string">&quot;blocks&quot;</span>)<span class="question-mark">?</span>;
+    <span class="kw">let </span>wallet_blocks_tree = db.open_tree(<span class="string">"blocks"</span>)<span class="question-mark">?</span>;
 
     <span class="comment">// If the database is already populated, just make sure it is for the same genesis block
     </span><span class="kw">if </span>height(<span class="kw-2">&amp;</span>db)<span class="question-mark">?</span>.is_some() {
         <span class="comment">// There are database blocks, so do a quick precheck to make sure they use the same genesis block.
         </span><span class="kw">let </span>wallet_genesis_ivec = wallet_block_hashes_tree
             .get(<span class="number">0</span>.encode())<span class="question-mark">?
-            </span>.expect(<span class="string">&quot;We know there are some blocks, so there should be a 0th block.&quot;</span>);
+            </span>.expect(<span class="string">"We know there are some blocks, so there should be a 0th block."</span>);
         <span class="kw">let </span>wallet_genesis_hash = H256::decode(<span class="kw-2">&amp;mut &amp;</span>wallet_genesis_ivec[..])<span class="question-mark">?</span>;
-        <span class="macro">log::debug!</span>(<span class="string">&quot;Found existing database.&quot;</span>);
+        <span class="macro">log::debug!</span>(<span class="string">"Found existing database."</span>);
         <span class="kw">if </span>expected_genesis_hash != wallet_genesis_hash {
-            <span class="macro">log::error!</span>(<span class="string">&quot;Wallet&#39;s genesis does not match expected. Aborting database opening.&quot;</span>);
-            <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="macro">anyhow!</span>(<span class="string">&quot;Node reports a different genesis block than wallet. Wallet: {wallet_genesis_hash:?}. Expected: {expected_genesis_hash:?}. Aborting all operations&quot;</span>));
+            <span class="macro">log::error!</span>(<span class="string">"Wallet's genesis does not match expected. Aborting database opening."</span>);
+            <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="macro">anyhow!</span>(<span class="string">"Node reports a different genesis block than wallet. Wallet: {wallet_genesis_hash:?}. Expected: {expected_genesis_hash:?}. Aborting all operations"</span>));
         }
         <span class="kw">return </span><span class="prelude-val">Ok</span>(db);
     }
 
     <span class="comment">// If there are no local blocks yet, initialize the tables
     </span><span class="macro">log::info!</span>(
-        <span class="string">&quot;Initializing fresh sync from genesis {:?}&quot;</span>,
+        <span class="string">"Initializing fresh sync from genesis {:?}"</span>,
         expected_genesis_hash
     );
 
@@ -546,71 +571,84 @@
     <span class="prelude-val">Ok</span>(db)
 }
 
-<span class="doccomment">/// Synchronize the local database to the database of the running node.
-/// The wallet entirely trusts the data the node feeds it. In the bigger
-/// picture, that means run your own (light) node.
-</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>synchronize&lt;F: Fn(<span class="kw-2">&amp;</span>OuterVerifier) -&gt; bool&gt;(
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>synchronize&lt;F: Fn(<span class="kw-2">&amp;</span>OuterVerifier) -&gt; bool&gt;(
+    parachain: bool,
     db: <span class="kw-2">&amp;</span>Db,
     client: <span class="kw-2">&amp;</span>HttpClient,
     filter: <span class="kw-2">&amp;</span>F,
 ) -&gt; anyhow::Result&lt;()&gt; {
-    <span class="macro">log::debug!</span>(<span class="string">&quot;Synchronizing wallet with node.&quot;</span>);
+    <span class="kw">if </span>parachain {
+        synchronize_helper::&lt;F, <span class="kw">crate</span>::ParachainConstraintChecker&gt;(db, client, filter).<span class="kw">await
+    </span>} <span class="kw">else </span>{
+        synchronize_helper::&lt;F, <span class="kw">crate</span>::OuterConstraintChecker&gt;(db, client, filter).<span class="kw">await
+    </span>}
+}
+
+<span class="doccomment">/// Synchronize the local database to the database of the running node.
+/// The wallet entirely trusts the data the node feeds it. In the bigger
+/// picture, that means run your own (light) node.
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>synchronize_helper&lt;F: Fn(<span class="kw-2">&amp;</span>OuterVerifier) -&gt; bool, C: ConstraintChecker&gt;(
+    db: <span class="kw-2">&amp;</span>Db,
+    client: <span class="kw-2">&amp;</span>HttpClient,
+    filter: <span class="kw-2">&amp;</span>F,
+) -&gt; anyhow::Result&lt;()&gt; {
+    <span class="macro">log::debug!</span>(<span class="string">"Synchronizing wallet with node."</span>);
 
     <span class="comment">// Start the algorithm at the height that the wallet currently thinks is best.
-    // Fetch the block hash at that height from both the wallet&#39;s local db and the node
-    </span><span class="kw">let </span><span class="kw-2">mut </span>height: u32 = height(db)<span class="question-mark">?</span>.ok_or(<span class="macro">anyhow!</span>(<span class="string">&quot;tried to sync an uninitialized database&quot;</span>))<span class="question-mark">?</span>;
+    // Fetch the block hash at that height from both the wallet's local db and the node
+    </span><span class="kw">let </span><span class="kw-2">mut </span>height: u32 = height(db)<span class="question-mark">?</span>.ok_or(<span class="macro">anyhow!</span>(<span class="string">"tried to sync an uninitialized database"</span>))<span class="question-mark">?</span>;
     <span class="kw">let </span><span class="kw-2">mut </span>wallet_hash = get_block_hash(db, height)<span class="question-mark">?
-        </span>.expect(<span class="string">&quot;Local database should have a block hash at the height reported as best&quot;</span>);
+        </span>.expect(<span class="string">"Local database should have a block hash at the height reported as best"</span>);
     <span class="kw">let </span><span class="kw-2">mut </span>node_hash: <span class="prelude-ty">Option</span>&lt;H256&gt; = rpc::node_get_block_hash(height, client).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="comment">// There may have been a re-org since the last time the node synced. So we loop backwards from the
     // best height the wallet knows about checking whether the wallet knows the same block as the node.
-    // If not, we roll this block back on the wallet&#39;s local db, and then check the next ancestor.
+    // If not, we roll this block back on the wallet's local db, and then check the next ancestor.
     // When the wallet and the node agree on the best block, the wallet can re-sync following the node.
     // In the best case, where there is no re-org, this loop will execute zero times.
     </span><span class="kw">while </span><span class="prelude-val">Some</span>(wallet_hash) != node_hash {
-        <span class="macro">log::debug!</span>(<span class="string">&quot;Divergence at height {height}. Node reports block: {node_hash:?}. Reverting wallet block: {wallet_hash:?}.&quot;</span>);
+        <span class="macro">log::debug!</span>(<span class="string">"Divergence at height {height}. Node reports block: {node_hash:?}. Reverting wallet block: {wallet_hash:?}."</span>);
 
-        unapply_highest_block(db).<span class="kw">await</span><span class="question-mark">?</span>;
+        unapply_highest_block::&lt;C&gt;(db).<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="comment">// Update for the next iteration
         </span>height -= <span class="number">1</span>;
         wallet_hash = get_block_hash(db, height)<span class="question-mark">?
-            </span>.expect(<span class="string">&quot;Local database should have a block hash at the height reported as best&quot;</span>);
+            </span>.expect(<span class="string">"Local database should have a block hash at the height reported as best"</span>);
         node_hash = rpc::node_get_block_hash(height, client).<span class="kw">await</span><span class="question-mark">?</span>;
     }
 
     <span class="comment">// Orphaned blocks (if any) have been discarded at this point.
     // So we prepare our variables for forward syncing.
-    </span><span class="macro">log::debug!</span>(<span class="string">&quot;Resyncing from common ancestor {node_hash:?} - {wallet_hash:?}&quot;</span>);
+    </span><span class="macro">log::debug!</span>(<span class="string">"Resyncing from common ancestor {node_hash:?} - {wallet_hash:?}"</span>);
     height += <span class="number">1</span>;
     node_hash = rpc::node_get_block_hash(height, client).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="comment">// Now that we have checked for reorgs and rolled back any orphan blocks, we can go ahead and sync forward.
     </span><span class="kw">while let </span><span class="prelude-val">Some</span>(hash) = node_hash {
-        <span class="macro">log::debug!</span>(<span class="string">&quot;Forward syncing height {height}, hash {hash:?}&quot;</span>);
+        <span class="macro">log::debug!</span>(<span class="string">"Forward syncing height {height}, hash {hash:?}"</span>);
 
         <span class="comment">// Fetch the entire block in order to apply its transactions
         </span><span class="kw">let </span>block = rpc::node_get_block(hash, client)
             .<span class="kw">await</span><span class="question-mark">?
-            </span>.expect(<span class="string">&quot;Node should be able to return a block whose hash it already returned&quot;</span>);
+            </span>.expect(<span class="string">"Node should be able to return a block whose hash it already returned"</span>);
 
         <span class="comment">// Apply the new block
-        </span>apply_block(db, block, hash, filter).<span class="kw">await</span><span class="question-mark">?</span>;
+        </span>apply_block::&lt;F, C&gt;(db, block, hash, filter).<span class="kw">await</span><span class="question-mark">?</span>;
 
         height += <span class="number">1</span>;
 
         node_hash = rpc::node_get_block_hash(height, client).<span class="kw">await</span><span class="question-mark">?</span>;
     }
 
-    <span class="macro">log::debug!</span>(<span class="string">&quot;Done with forward sync up to {}&quot;</span>, height - <span class="number">1</span>);
+    <span class="macro">log::debug!</span>(<span class="string">"Done with forward sync up to {}"</span>, height - <span class="number">1</span>);
 
     <span class="prelude-val">Ok</span>(())
 }
 
 <span class="doccomment">/// Gets the owner and amount associated with an output ref from the unspent table
 ///
-/// Some if the output ref exists, None if it doesn&#39;t
+/// Some if the output ref exists, None if it doesn't
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>get_unspent(db: <span class="kw-2">&amp;</span>Db, output_ref: <span class="kw-2">&amp;</span>OutputRef) -&gt; anyhow::Result&lt;<span class="prelude-ty">Option</span>&lt;(H256, u128)&gt;&gt; {
     <span class="kw">let </span>wallet_unspent_tree = db.open_tree(UNSPENT)<span class="question-mark">?</span>;
     <span class="kw">let </span><span class="prelude-val">Some</span>(ivec) = wallet_unspent_tree.get(output_ref.encode())<span class="question-mark">? </span><span class="kw">else </span>{
@@ -621,7 +659,7 @@
 }
 
 <span class="doccomment">/// Picks an arbitrary set of unspent outputs from the database for spending.
-/// The set&#39;s token values must add up to at least the specified target value.
+/// The set's token values must add up to at least the specified target value.
 ///
 /// The return value is None if the total value of the database is less than the target
 /// It is Some(Vec![...]) when it is possible
@@ -651,7 +689,7 @@
     <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(keepers))
 }
 
-<span class="doccomment">/// Gets the block hash from the local database given a block height. Similar the Node&#39;s RPC.
+<span class="doccomment">/// Gets the block hash from the local database given a block height. Similar the Node's RPC.
 ///
 /// Some if the block exists, None if the block does not exist.
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>get_block_hash(db: <span class="kw-2">&amp;</span>Db, height: u32) -&gt; anyhow::Result&lt;<span class="prelude-ty">Option</span>&lt;H256&gt;&gt; {
@@ -667,7 +705,7 @@
 
 <span class="comment">// This is part of what I expect to be a useful public interface. For now it is not used.
 </span><span class="attr">#[allow(dead_code)]
-</span><span class="doccomment">/// Gets the block from the local database given a block hash. Similar to the Node&#39;s RPC.
+</span><span class="doccomment">/// Gets the block from the local database given a block hash. Similar to the Node's RPC.
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>get_block(db: <span class="kw-2">&amp;</span>Db, hash: H256) -&gt; anyhow::Result&lt;<span class="prelude-ty">Option</span>&lt;Block&gt;&gt; {
     <span class="kw">let </span>wallet_blocks_tree = db.open_tree(BLOCKS)<span class="question-mark">?</span>;
     <span class="kw">let </span><span class="prelude-val">Some</span>(ivec) = wallet_blocks_tree.get(hash.encode())<span class="question-mark">? </span><span class="kw">else </span>{
@@ -680,13 +718,13 @@
 }
 
 <span class="doccomment">/// Apply a block to the local database
-</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>apply_block&lt;F: Fn(<span class="kw-2">&amp;</span>OuterVerifier) -&gt; bool&gt;(
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>apply_block&lt;F: Fn(<span class="kw-2">&amp;</span>OuterVerifier) -&gt; bool, C: ConstraintChecker&gt;(
     db: <span class="kw-2">&amp;</span>Db,
-    b: Block,
+    b: OpaqueBlock,
     block_hash: H256,
     filter: <span class="kw-2">&amp;</span>F,
 ) -&gt; anyhow::Result&lt;()&gt; {
-    <span class="macro">log::debug!</span>(<span class="string">&quot;Applying Block {:?}, Block_Hash {:?}&quot;</span>, b, block_hash);
+    <span class="macro">log::debug!</span>(<span class="string">"Applying Block {:?}, Block_Hash {:?}"</span>, b, block_hash);
     <span class="comment">// Write the hash to the block_hashes table
     </span><span class="kw">let </span>wallet_block_hashes_tree = db.open_tree(BLOCK_HASHES)<span class="question-mark">?</span>;
     wallet_block_hashes_tree.insert(b.header.number.encode(), block_hash.encode())<span class="question-mark">?</span>;
@@ -697,7 +735,7 @@
 
     <span class="comment">// Iterate through each transaction
     </span><span class="kw">for </span>tx <span class="kw">in </span>b.extrinsics {
-        apply_transaction(db, tx, filter).<span class="kw">await</span><span class="question-mark">?</span>;
+        apply_transaction::&lt;F, C&gt;(db, tx, filter).<span class="kw">await</span><span class="question-mark">?</span>;
     }
 
     <span class="prelude-val">Ok</span>(())
@@ -705,42 +743,35 @@
 
 <span class="doccomment">/// Apply a single transaction to the local database
 /// The owner-specific tables are mappings from output_refs to coin amounts
-</span><span class="kw">async fn </span>apply_transaction&lt;F: Fn(<span class="kw-2">&amp;</span>OuterVerifier) -&gt; bool&gt;(
+</span><span class="kw">async fn </span>apply_transaction&lt;F: Fn(<span class="kw-2">&amp;</span>OuterVerifier) -&gt; bool, C: ConstraintChecker&gt;(
     db: <span class="kw-2">&amp;</span>Db,
-    tx: Transaction,
+    opaque_tx: OpaqueExtrinsic,
     filter: <span class="kw-2">&amp;</span>F,
 ) -&gt; anyhow::Result&lt;()&gt; {
-    <span class="kw">let </span>tx_hash = BlakeTwo256::hash_of(<span class="kw-2">&amp;</span>tx.encode());
-    <span class="macro">log::debug!</span>(<span class="string">&quot;syncing transaction {tx_hash:?}&quot;</span>);
+    <span class="kw">let </span>encoded_extrinsic = opaque_tx.encode();
+    <span class="kw">let </span>tx_hash = BlakeTwo256::hash_of(<span class="kw-2">&amp;</span>encoded_extrinsic);
+    <span class="macro">log::debug!</span>(<span class="string">"syncing transaction {tx_hash:?}"</span>);
+
+    <span class="comment">// Now get a structured transaction
+    </span><span class="kw">let </span>tx = Transaction::&lt;OuterVerifier, C&gt;::decode(<span class="kw-2">&amp;mut &amp;</span>encoded_extrinsic[..])<span class="question-mark">?</span>;
 
     <span class="comment">// Insert all new outputs
-    </span><span class="kw">for </span>(index, output) <span class="kw">in </span>tx
-        .outputs
-        .iter()
-        .filter(|o| filter(<span class="kw-2">&amp;</span>o.verifier))
-        .enumerate()
-    {
-        <span class="comment">// For now the wallet only supports simple coins, so skip anything else
-        </span><span class="kw">let </span>amount = <span class="kw">match </span>output.payload.extract::&lt;Coin&lt;<span class="number">0</span>&gt;&gt;() {
-            <span class="prelude-val">Ok</span>(Coin(amount)) =&gt; amount,
-            <span class="prelude-val">Err</span>(<span class="kw">_</span>) =&gt; <span class="kw">continue</span>,
-        };
-
-        <span class="kw">let </span>output_ref = OutputRef {
-            tx_hash,
-            index: index <span class="kw">as </span>u32,
-        };
-
-        <span class="kw">match </span>output.verifier {
-            OuterVerifier::Sr25519Signature(Sr25519Signature { owner_pubkey }) =&gt; {
-                <span class="comment">// Add it to the global unspent_outputs table
-                </span>add_unspent_output(db, <span class="kw-2">&amp;</span>output_ref, <span class="kw-2">&amp;</span>owner_pubkey, <span class="kw-2">&amp;</span>amount)<span class="question-mark">?</span>;
+    </span><span class="kw">for </span>(index, output) <span class="kw">in </span>tx.outputs.iter().enumerate() {
+        <span class="comment">// For now the wallet only supports simple coins and timestamp
+        </span><span class="kw">match </span>output.payload.type_id {
+            Coin::&lt;<span class="number">0</span>&gt;::TYPE_ID =&gt; {
+                <span class="kw">if </span>filter(<span class="kw-2">&amp;</span>output.verifier) {
+                    <span class="kw">crate</span>::money::apply_transaction(db, tx_hash, index <span class="kw">as </span>u32, output)<span class="question-mark">?</span>;
+                }
             }
-            <span class="kw">_ </span>=&gt; <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="macro">anyhow!</span>(<span class="string">&quot;{:?}&quot;</span>, ())),
+            Timestamp::TYPE_ID =&gt; {
+                <span class="kw">crate</span>::timestamp::apply_transaction(db, output)<span class="question-mark">?</span>;
+            }
+            <span class="kw">_ </span>=&gt; <span class="kw">continue</span>,
         }
     }
 
-    <span class="macro">log::debug!</span>(<span class="string">&quot;about to spend all inputs&quot;</span>);
+    <span class="macro">log::debug!</span>(<span class="string">"about to spend all inputs"</span>);
     <span class="comment">// Spend all the inputs
     </span><span class="kw">for </span>Input { output_ref, .. } <span class="kw">in </span>tx.inputs {
         spend_output(db, <span class="kw-2">&amp;</span>output_ref)<span class="question-mark">?</span>;
@@ -750,7 +781,7 @@
 }
 
 <span class="doccomment">/// Add a new output to the database updating all tables.
-</span><span class="kw">fn </span>add_unspent_output(
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>add_unspent_output(
     db: <span class="kw-2">&amp;</span>Db,
     output_ref: <span class="kw-2">&amp;</span>OutputRef,
     owner_pubkey: <span class="kw-2">&amp;</span>H256,
@@ -802,7 +833,10 @@
 
 <span class="doccomment">/// Run a transaction backwards against a database. Mark all of the Inputs
 /// as unspent, and drop all of the outputs.
-</span><span class="kw">fn </span>unapply_transaction(db: <span class="kw-2">&amp;</span>Db, tx: <span class="kw-2">&amp;</span>Transaction) -&gt; anyhow::Result&lt;()&gt; {
+</span><span class="kw">fn </span>unapply_transaction&lt;C: ConstraintChecker&gt;(db: <span class="kw-2">&amp;</span>Db, tx: <span class="kw-2">&amp;</span>OpaqueExtrinsic) -&gt; anyhow::Result&lt;()&gt; {
+    <span class="comment">// We need to decode the opaque extrinsics. So we do a scale round-trip.
+    </span><span class="kw">let </span>tx = Transaction::&lt;OuterVerifier, C&gt;::decode(<span class="kw-2">&amp;mut &amp;</span>tx.encode()[..])<span class="question-mark">?</span>;
+
     <span class="comment">// Loop through the inputs moving each from spent to unspent
     </span><span class="kw">for </span>Input { output_ref, .. } <span class="kw">in </span><span class="kw-2">&amp;</span>tx.inputs {
         unspend_output(db, output_ref)<span class="question-mark">?</span>;
@@ -823,17 +857,17 @@
 }
 
 <span class="doccomment">/// Unapply the best block that the wallet currently knows about
-</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>unapply_highest_block(db: <span class="kw-2">&amp;</span>Db) -&gt; anyhow::Result&lt;Block&gt; {
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>unapply_highest_block&lt;C: ConstraintChecker&gt;(db: <span class="kw-2">&amp;</span>Db) -&gt; anyhow::Result&lt;()&gt; {
     <span class="kw">let </span>wallet_blocks_tree = db.open_tree(BLOCKS)<span class="question-mark">?</span>;
     <span class="kw">let </span>wallet_block_hashes_tree = db.open_tree(BLOCK_HASHES)<span class="question-mark">?</span>;
 
     <span class="comment">// Find the best height
-    </span><span class="kw">let </span>height = height(db)<span class="question-mark">?</span>.ok_or(<span class="macro">anyhow!</span>(<span class="string">&quot;Cannot unapply block from uninitialized database&quot;</span>))<span class="question-mark">?</span>;
+    </span><span class="kw">let </span>height = height(db)<span class="question-mark">?</span>.ok_or(<span class="macro">anyhow!</span>(<span class="string">"Cannot unapply block from uninitialized database"</span>))<span class="question-mark">?</span>;
 
     <span class="comment">// Take the hash from the block_hashes tables
     </span><span class="kw">let </span><span class="prelude-val">Some</span>(ivec) = wallet_block_hashes_tree.remove(height.encode())<span class="question-mark">? </span><span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="macro">anyhow!</span>(
-            <span class="string">&quot;No block hash found at height reported as best. DB is inconsistent.&quot;
+            <span class="string">"No block hash found at height reported as best. DB is inconsistent."
         </span>));
     };
     <span class="kw">let </span>hash = H256::decode(<span class="kw-2">&amp;mut &amp;</span>ivec[..])<span class="question-mark">?</span>;
@@ -841,18 +875,18 @@
     <span class="comment">// Take the block from the blocks table
     </span><span class="kw">let </span><span class="prelude-val">Some</span>(ivec) = wallet_blocks_tree.remove(hash.encode())<span class="question-mark">? </span><span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(<span class="macro">anyhow!</span>(
-            <span class="string">&quot;Block was not present in db but block hash was. DB is corrupted.&quot;
+            <span class="string">"Block was not present in db but block hash was. DB is corrupted."
         </span>));
     };
 
-    <span class="kw">let </span>block = Block::decode(<span class="kw-2">&amp;mut &amp;</span>ivec[..])<span class="question-mark">?</span>;
+    <span class="kw">let </span>block = OpaqueBlock::decode(<span class="kw-2">&amp;mut &amp;</span>ivec[..])<span class="question-mark">?</span>;
 
     <span class="comment">// Loop through the transactions in reverse order calling unapply
     </span><span class="kw">for </span>tx <span class="kw">in </span>block.extrinsics.iter().rev() {
-        unapply_transaction(db, tx)<span class="question-mark">?</span>;
+        unapply_transaction::&lt;C&gt;(db, tx)<span class="question-mark">?</span>;
     }
 
-    <span class="prelude-val">Ok</span>(block)
+    <span class="prelude-val">Ok</span>(())
 }
 
 <span class="doccomment">/// Get the block height that the wallet is currently synced to
@@ -875,7 +909,7 @@
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>print_block_hashes_tree(db: <span class="kw-2">&amp;</span>Db) -&gt; anyhow::Result&lt;()&gt; {
     <span class="kw">for </span>height <span class="kw">in </span><span class="number">0</span>..height(db)<span class="question-mark">?</span>.unwrap() {
         <span class="kw">let </span>hash = get_block_hash(db, height)<span class="question-mark">?</span>;
-        <span class="macro">println!</span>(<span class="string">&quot;height: {height}, hash: {hash:?}&quot;</span>);
+        <span class="macro">println!</span>(<span class="string">"height: {height}, hash: {hash:?}"</span>);
     }
 
     <span class="prelude-val">Ok</span>(())
@@ -889,7 +923,7 @@
         <span class="kw">let </span>output_ref = hex::encode(output_ref_ivec);
         <span class="kw">let </span>(owner_pubkey, amount) = &lt;(H256, u128)&gt;::decode(<span class="kw-2">&amp;mut &amp;</span>owner_amount_ivec[..])<span class="question-mark">?</span>;
 
-        <span class="macro">println!</span>(<span class="string">&quot;{output_ref}: owner {owner_pubkey:?}, amount {amount}&quot;</span>);
+        <span class="macro">println!</span>(<span class="string">"{output_ref}: owner {owner_pubkey:?}, amount {amount}"</span>);
     }
 
     <span class="prelude-val">Ok</span>(())
